@@ -15,7 +15,7 @@
         float: left;
         width: 35%;
         padding: 3px;
-        height: 100%;
+        height: 800px;
         display: table;
         justify-content: center;
         align-items:center;
@@ -25,7 +25,7 @@
         float: right;
         width: 55%;
         padding: 3px;
-        height: 100%;
+        height: 800px;
 
         align-items:center;
         background-color: #eeeddd;
@@ -56,19 +56,22 @@
                 {# <button style="display:block;margin:0 auto"  onclick="window.location.href = '/admin">开始处理</button> #}
                 <form action="/show_result_18/" method="post">
                     {% csrf_token %}
-                    <button style="display:block;margin:0 auto" type="submit">导入ResNet18模型权重并开始处理</button>
+                    <button style="display:block;margin:0 auto" type="submit">加载ResNet18预训练模型并开始处理</button>  
                 </form>
             </div>
             <br>
             <div>   
                 <form action="/admin/" method="post">
                     {% csrf_token %}
-                    <button style="display:block;margin:0 auto" type="submit">导入ResNet50模型权重并开始处理</button>
+                    <button style="display:block;margin:0 auto" type="submit">加载ResNet50预训练模型并开始处理</button>
                 </form>
             </div>
+            
+            {% comment %} 
             <div>
                 <h3>分类结果</h3>
-            </div>
+            </div> 
+            {% endcomment %}
 
         </div>
 
@@ -76,7 +79,9 @@
         <div class="right">
             {# <p>右边栏</p> #}
             <div>
-                {% if  key == 1 %}
+                {% if  key == 0 %}
+                <h3>请选择您要进行的操作</h3>
+                {% elif  key == 1 %}
                 <h3>图像增强策略后到两个视图:</h3>
                 <img src="{{ MEDIA_URL }}{{ view1 }}" , height="450px", width="450px"/>
 
@@ -85,16 +90,16 @@
                 {% elif key == 2 %}
                 <h3>不同层级的特征输出图: </h3>
                 <h4>View1: </h4>
-                <img src="{{ MEDIA_URL }}{{ v1_level1 }}" , height="300px", width="300px"/>
+                <img src="{{ MEDIA_URL }}{{ low_v1 }}" , height="300px", width="300px"/>
 
-                <img src="{{ MEDIA_URL }}{{ v1_level2 }}" , height="300px", width="300px"/>
+                <img src="{{ MEDIA_URL }}{{ mid_v1 }}" , height="300px", width="300px"/>
 
                 <img src="{{ MEDIA_URL }}{{ v1_level3 }}" , height="300px", width="300px"/>
 
                 <h4>View2: </h4>
-                <img src="{{ MEDIA_URL }}{{ v2_level1 }}" , height="300px", width="300px"/>
+                <img src="{{ MEDIA_URL }}{{ low_v2 }}" , height="300px", width="300px"/>
 
-                <img src="{{ MEDIA_URL }}{{ v2_level2 }}" , height="300px", width="300px"/>
+                <img src="{{ MEDIA_URL }}{{ mid_v2 }}" , height="300px", width="300px"/>
 
                 <img src="{{ MEDIA_URL }}{{ v2_level3 }}" , height="300px", width="300px"/>
 
@@ -109,22 +114,38 @@
             
 
         </div>
-
+        {# 中间栏 #}
         <div class="middle">
-        </br>
+         </br>
         <div>   
             <form action="/admin/" method="post">
+                {% csrf_token %}
+                <button style="display:block;margin:0 auto" type="submit">显示最终分类结果</button>
+            </form>
+        </div>
+
+        </br>
+        <div>   
+            <form action="/s_enhance/" method="post">
                 {% csrf_token %}
                 <button style="display:block;margin:0 auto" type="submit">显示增强后视图</button>
             </form>
         </div>
         </br>
         <div>   
-            <form action="/admin/" method="post">
+            <form action="/s_multilayer/" method="post">
                 {% csrf_token %}
-                <button style="display:block;margin:0 auto" type="submit">显示增强后视图</button>
+                <button style="display:block;margin:0 auto" type="submit">显示不同层级的特征图</button>
             </form>
         </div>
+        </br>
+        <div>   
+            <form action="/admin/" method="post">
+                {% csrf_token %}
+                <button style="display:block;margin:0 auto" type="submit">显示注意力可视化图</button>
+            </form>
+        </div>
+
         </div>
     </div>
 </body>

@@ -27,4 +27,6 @@ urlpatterns = [
     path("pic_handle/", views.pic_handle),
     path("show_result_18/", views.show_result_18),
     path("show_result_50/", views.show_result_50),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path("s_enhance/", views.show_enhanced_views),
+    path("s_multilayer/", views.show_multi_features),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

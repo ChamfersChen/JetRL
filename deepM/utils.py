@@ -33,7 +33,7 @@ def get_cam(img_path,
             alpha = 0.5,
             rows = 1, 
             class_idx = 232, 
-            savefig = "/Users/mac/Desktop/Projects/Django/jetimg/media/grad_cam.png",
+            savefig = "./media/grad_cam.png",
             noblock = False,
             device = "cuda:0" if torch.cuda.is_available() else "cpu"):
 
@@ -125,7 +125,7 @@ def get_backbone(backbone, castrate=True):
 
     return backbone
 
-def get_level_feature_map(view1, view2, img_prefix = "low",t = 2, gap = 4, num_p=3, media_path = '/Users/mac/Desktop/Projects/Django/jetimg/media/'):
+def get_level_feature_map(view1, view2, img_prefix = "low",t = 2, gap = 4, num_p=3, media_path = './media/'):
     # 保存不同层级特征
     _, b, w, h = view1.shape
 
