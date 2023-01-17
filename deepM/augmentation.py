@@ -31,8 +31,9 @@ class Transform():
         x2 = self.transform(x)
         return x1, x2 
 
-def get_views(img_path, save_path = "/Users/mac/Desktop/Projects/Django/jetimg/media",image_size=None):
+def get_views(img_path, save_path = "media",image_size=None):
     # 获取图像增强策略
+    save_path = os.path.join(os.getcwd(), "media")
     aug = Transform(image_size=image_size)
     # 读取图片
     image_path = img_path
@@ -40,7 +41,7 @@ def get_views(img_path, save_path = "/Users/mac/Desktop/Projects/Django/jetimg/m
     # 进行图像增强，产生两个视图
     v1,v2 = aug(img)
     # 保存图片
-    cv2.imwrite(os.path.join(save_path,"v1.png"), v1.permute(1, 2, 0).numpy()*255)
-    cv2.imwrite(os.path.join(save_path,"v2.png"), v2.permute(1, 2, 0).numpy()*255)
+    cv2.imwrite(os.path.join(save_path,"view1.png"), v1.permute(1, 2, 0).numpy()*255)
+    cv2.imwrite(os.path.join(save_path,"view2.png"), v2.permute(1, 2, 0).numpy()*255)
 
     return v1, v2
