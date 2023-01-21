@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 {% load static %}
 <html lang="en" >
@@ -149,4 +150,188 @@
         </div>
     </div>
 </body>
+=======
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" >
+<head>
+    <link REL="SHORTCUT ICON" HREF="{% static "images/favicon.ico" %}"/>
+
+    <meta charset="UTF-8">
+    <title>JET表征学习系统</title>
+    <style>
+    .container {
+        padding: 0px;
+        margin: 0px;
+    }
+    .left {
+        float: left;
+        width: 30%;
+        padding: 3px;
+        height: 800px;
+        display: table;
+        justify-content: center;
+        align-items:center;
+        background-color: #f5f5f5;
+    }
+    .right {
+        float: right;
+        width: 57%;
+        padding: 3px;
+        height: 800px;
+
+        align-items:center;
+        background-color: #eeeddd;
+    }
+    .middle{
+        height: 100%;
+        margin: 0 50px 0 100px;
+        word-break: break-word;    
+    }
+
+    .modal{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% if do_success == 0 %}
+        <script type="text/javascript">alert("模型加载或处理发生错误,请重试.\n (请按照如下步骤进行操作:\n 1.加载预训练模型。\n 2.点击'开始处理'。\n 3.选择您想要查看的结果。)")</script>
+        {% elif do_success == 1 %}
+        <script type="text/javascript">alert("模型处理完成!")</script>
+        {% elif do_success == 2 %}
+        <script type="text/javascript">alert("图像不能为空,请选择一张图片!")</script>
+        {% elif do_success == 3 %}
+        <script type="text/javascript">alert("模型加载完成,接下来您可以开始处理了!")</script>
+        {% endif %}
+        <div class="left">
+            {#<p>左边栏</p>#}
+            <div>
+                <form method='post' enctype="multipart/form-data" action="/pic_handle/">
+                    {% csrf_token %}
+                    <input type="file" name="pic"> {#<br/>#}
+                    <input type="submit" value="上传">
+                    {% comment %} <a><font color="red">{{request.session.msg}}</font></a> {% endcomment %}
+                    <br/><br/>
+                    <img src="{{ MEDIA_URL }}{{ img_path }}" , height="100%", width="100%"/>
+                </form>
+            </div>
+            <br>
+            
+            {% comment %} 
+            <div>
+                <h3>分类结果</h3>
+            </div> 
+            {% endcomment %}
+
+        </div>
+
+
+        <div class="right">
+            {# <p>右边栏</p> #}
+            <div>
+                {% if  key == 0 %}
+                <h3>请选择您要进行的操作</h3>
+                
+                {% elif  key == 1 %}
+                <h3>图像增强策略后到两个视图:</h3>
+                <img src="{{ MEDIA_URL }}{{ view1 }}" , height="47%", width="47%"/>
+
+                <img src="{{ MEDIA_URL }}{{ view2 }}" , height="47%", width="47%"/>
+                
+                {% elif key == 2 %}
+                <h3>不同层级的特征输出图: </h3>
+                <h4>View1: </h4>
+                <img src="{{ MEDIA_URL }}{{ low_v1 }}" , height="30%", width="30%"/>
+
+                <img src="{{ MEDIA_URL }}{{ mid_v1 }}" , height="30%", width="30%"/>
+
+                <img src="{{ MEDIA_URL }}{{ v1_level3 }}" , height="30%", width="30%"/>
+
+                <h4>View2: </h4>
+                <img src="{{ MEDIA_URL }}{{ low_v2 }}" , height="30%", width="30%"/>
+
+                <img src="{{ MEDIA_URL }}{{ mid_v2 }}" , height="30%", width="30%"/>
+
+                <img src="{{ MEDIA_URL }}{{ v2_level3 }}" , height="30%", width="30%"/>
+
+                {% elif key == 3 %}
+                <h3>模型注意力可视化图:</h3>
+                <img src="{{ MEDIA_URL }}{{ hotmap }}" , height="100%", width="100%"/>
+                {% endif %}
+            </div>
+            
+
+        </div>
+        {# 中间栏 #}
+        <div class="middle">
+            </br>
+            <div>   
+                {# <button style="display:block;margin:0 auto"  onclick="window.location.href = '/admin' ">开始处理</button> #}
+                <form action="/load_resnet_18/" method="post">
+                    {% csrf_token %}
+                    <button style="display:block;margin:0 auto" type="submit">加载ResNet18预训练模型</button>  
+                </form>
+            </div>
+
+            </br>
+            <div>   
+                <form action="/admin/" method="post">
+                    {% csrf_token %}
+                    <button style="display:block;margin:0 auto" type="submit">加载ResNet50预训练模型</button>
+                </form>
+            </div>
+            </br>
+            <div style="border:1px solid #CCC"></div>
+            </br>
+            <div>   
+                <form action="/processing/" method="post">
+                    {% csrf_token %}
+                    <button style="display:block;margin:0 auto" type="submit">开始处理</button>
+                </form>
+            </div>
+            </br>
+            <div style="border:1px solid #CCC"></div>
+
+            </br>
+            <div>   
+                <form action="/admin/" method="post">
+                    {% csrf_token %}
+                    <button style="display:block;margin:0 auto" type="submit">显示最终分类结果</button>
+                </form>
+            </div>
+
+            </br>
+            <div>   
+                <form action="/s_enhance/" method="post">
+                    {% csrf_token %}
+                    <button style="display:block;margin:0 auto" type="submit">显示增强后视图</button>
+                </form>
+            </div>
+
+            </br>
+            <div>   
+                <form action="/s_multilayer/" method="post">
+                    {% csrf_token %}
+                    <button style="display:block;margin:0 auto" type="submit">显示不同层级的特征图</button>
+                </form>
+            </div>
+
+            </br>
+            <div>   
+                <form action="/s_hotmap/" method="post">
+                    {% csrf_token %}
+                    <button style="display:block;margin:0 auto" type="submit">显示注意力可视化图</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+>>>>>>> 2f0eaee8a477a91af37b042851c4e144fb1e6671
 </html>

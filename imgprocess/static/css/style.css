@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .container {
     width: 100%;
     height: 500px;
@@ -13,4 +14,21 @@
     height: 100%;
     background-color: red;
   }
+=======
+.container {
+    width: 100%;
+    height: 500px;
+  }
+  .left {
+    float: left;
+    width: 240px;
+    height: 100%;
+    background-color: lightskyblue;
+  }
+  .right {
+    margin-left: 240px;
+    height: 100%;
+    background-color: red;
+  }
+>>>>>>> 2f0eaee8a477a91af37b042851c4e144fb1e6671
   
