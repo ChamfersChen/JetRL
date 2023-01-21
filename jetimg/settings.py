@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     "imgprocess.apps.ImgprocessConfig",
+    "user.apps.UserConfig"
 ]
 
 MIDDLEWARE = [

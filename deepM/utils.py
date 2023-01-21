@@ -72,7 +72,7 @@ def get_cam(img_path,
     # Display input
     ax = axes[0][0] if rows > 1 else axes[0] if num_cols > 1 else axes
     ax.imshow(pil_img)
-    ax.set_title("Input", size=8)
+    # ax.set_title("Input", size=8)
 
     for idx, extractor in zip(range(1, len(cam_extractors) + 1), cam_extractors):
         extractor._hooks_enabled = True
@@ -97,7 +97,7 @@ def get_cam(img_path,
         ax = axes[idx // num_cols][idx % num_cols] if rows > 1 else axes[idx] if num_cols > 1 else axes
 
         ax.imshow(result)
-        ax.set_title(extractor.__class__.__name__, size=8)
+        # ax.set_title(extractor.__class__.__name__, size=8)
 
     # Clear axes
     if num_cols > 1:
@@ -152,3 +152,5 @@ def get_level_feature_map(view1, view2, img_prefix = "low",t = 2, gap = 4, num_p
 
     cv2.imwrite(os.path.join(media_path, "{}_v1.png".format(img_prefix)), cat_v1*255)
     cv2.imwrite(os.path.join(media_path, "{}_v2.png".format(img_prefix)), cat_v2*255)
+
+    return 1

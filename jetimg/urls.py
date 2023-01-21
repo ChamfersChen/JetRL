@@ -19,14 +19,18 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 from imgprocess import views
+from user import views as u_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("index/", views.index),
     path("index2/",views.index2),
     path("pic_handle/", views.pic_handle),
-    path("show_result_18/", views.show_result_18),
-    path("show_result_50/", views.show_result_50),
+    path("load_resnet_18/", views.load_resnet_18),
+    path("load_resnet_50/", views.load_resnet_50),
+    path("processing/", views.processing),
     path("s_enhance/", views.show_enhanced_views),
     path("s_multilayer/", views.show_multi_features),
+    path("s_hotmap/", views.show_attention_map),
+
+    path("user/", u_views.register),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
