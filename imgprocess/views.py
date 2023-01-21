@@ -61,7 +61,7 @@ def load_resnet_18(request):
     try:
         model = get_backbone("resnet18_ml_backbone",castrate=False)
         model_name = 'resnet_18'
-        eval_from = './deepM/mlrl-fusion-tiny_imagenet-ep200-200-resnet18_ml_backbone.pth'
+        eval_from = '../checkpoints/mlrl-fusion-tiny_imagenet-ep200-200-resnet18_ml_backbone.pth'
         save_dict = torch.load(eval_from, map_location='cpu')
         msg = model.load_state_dict({k[9:]:v for k, v in save_dict['state_dict'].items() if k.startswith('backbone.')}, strict=True)
     except:

@@ -1,7 +1,6 @@
 __pycache__
+*.pth
 
 *.png
 *.jpg
 *.jpeg
-
-*.pth
